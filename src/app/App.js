@@ -4,6 +4,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import * as components from './components';
+import {authMiddleware} from './middlewares/authMiddleware';
+import {errorHandlerMiddleware} from './middlewares/errorMiddleware';
  
 class App {
 
@@ -22,9 +24,21 @@ class App {
     this.express.use(morgan("dev"))
 
     /**
+     * init authentication routes here
+     */
+    this.express.use("/api/v1/auth", components.authAPI);
+
+    this.express.use(authMiddleware); //authenticate routes
+
+    /**
      * accessible routes here
      */
-    this.express.use("/api/v1", components.API)
+    //this.express.use("/api/v1", components.API)
+
+    /**
+     * handle app errors centrally. hopefully arrgh
+     */
+    this.express.use(errorHandlerMiddleware);
   }
   
 }

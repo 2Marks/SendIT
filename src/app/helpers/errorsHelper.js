@@ -45,6 +45,18 @@ export class JoiValidationError extends BaseError {
   }
 }
 
+export class UnauthenticatedError extends BaseError {
+  constructor(message, info){
+    super(message || 'User not authenticated.', 401, 'USER_UNAUTHENTICATED')
+  } 
+}
+
+export class ResourceForbiddenError extends BaseError {
+  constructor(message, info){
+    super(message || 'User not authorized to access this resource.', 403, 'RESOURCE_FORBIDDEN')
+  } 
+}
+
 function resolveMessage(message, path) {
   if(path.length > 1){
     return `${message} (${path.join('->')})`
