@@ -1,6 +1,6 @@
 import {UnprocessableEntityError} from './errorsHelper';
 
-export default async function APIHelper (req, res, controller, expectPayload = true) {
+export async function APIHelper (req, res, controller, expectPayload = true) {
   try {
     //TODO: validates for object entry only
     if(typeof req.body!="undefined" && Array.isArray(req.body)){
